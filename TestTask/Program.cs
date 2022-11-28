@@ -1,4 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using TestTask.DataAccess.Context;
+
 var builder = WebApplication.CreateBuilder(args);
+
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<TestTaskContext>(options => options
+    .UseSqlServer(connectionString, b => b.MigrationsAssembly("TestTask.DataAccess"))
+    .EnableSensitiveDataLogging());
+
 
 // Add services to the container.
 
