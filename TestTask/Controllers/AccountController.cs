@@ -19,11 +19,12 @@ namespace TestTask.Controllers
         {
             try
             {
-                return Ok(await _accountService.UpdateContactInformation(entity));
+                await _accountService.UpdateContactInformation(entity);
+                return Ok();
             }
-            catch (Exception ex)
+            catch (ArgumentNullException ex)
             {
-                return BadRequest(ex.Message);
+                return NotFound(ex.Message);
             }
         }
     }

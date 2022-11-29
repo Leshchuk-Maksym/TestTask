@@ -18,47 +18,49 @@ namespace TestTask.Domain.Services
             _incidentsRepository = incidentsRepository;
         }
 
-        public async Task<string> UpdateContactInformation(ContactInfoUpdateDto entity)
+        /// <summary>
+        /// Update Contact infromation for Account.
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task UpdateContactInformation(ContactInfoUpdateDto entity)
         {
-            await _contactsRepository.AddAsync(new Contact
-            {
-                Email = entity.Email,
-                FirstName = entity.FirstName,
-                LastName = entity.LastName
-            });
-
-            var contactEntity = await _contactsRepository.GetByKeyAsync(entity.Email);
-
             var accountEntity = await _accountsRepository.GetByKeyAsync(entity.AccountName);
 
             if (accountEntity == null)
             {
-                await _accountsRepository.AddAsync(new Account
+                throw new ArgumentNullException(nameof(accountEntity));
+            }
+
+            var contactEntity = await _contactsRepository.GetByKeyAsync(entity.Email);
+
+            if (contactEntity != null)
+            {
+                contactEntity.FirstName = entity.FirstName;
+                contactEntity.LastName = entity.LastName;
+                await _contactsRepository.UpdateAsync(contactEntity);
+
+                if (!accountEntity.Contacts.Any(x => x.Email == contactEntity.Email))
                 {
-                    Name = entity.AccountName,
-                    Contacts = new List<Contact> { contactEntity }
-                });
-                accountEntity = await _accountsRepository.GetByKeyAsync(entity.AccountName);
+                    accountEntity.Contacts.Add(contactEntity);
+                    await _accountsRepository.UpdateAsync(accountEntity);
+                }
             }
             else
             {
-                accountEntity.Contacts.Add(contactEntity);
-
-                await _accountsRepository.UpdateAsync(accountEntity);
+                await _contactsRepository.AddAsync(new Contact
+                {
+                    Email = entity.Email,
+                    FirstName = entity.FirstName,
+                    LastName = entity.LastName
+                });
             }
-
 
             await _incidentsRepository.AddAsync(new Incident
             {
                 Accounts = new List<Account> { accountEntity },
                 Description = entity.IncidentDesciption
             });
-
-            //var incidentEntity = _incidentsRepository.FindAsync();
-
-
-            return entity.IncidentDesciption;
-
         }
     }
 }
