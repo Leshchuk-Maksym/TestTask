@@ -5,7 +5,7 @@ namespace TestTask.DataAccess.Entities
     public class Contact
     {
         /// <summary>
-        /// Primary key for Contact.
+        /// Primary key for the Contact.
         /// </summary>
         [Key]
         public string Email { get; set; }
@@ -19,5 +19,7 @@ namespace TestTask.DataAccess.Entities
         /// Gets or sets Last Name for the Contact.
         /// </summary>
         public string LastName { get; set; }
+
+        public Account Account { get; set; }
     }
 }

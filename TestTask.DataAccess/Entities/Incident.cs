@@ -7,7 +7,7 @@ namespace TestTask.DataAccess.Entities
     {
 
         /// <summary>
-        /// Database generated Primary Key.
+        /// Database generated Primary Key for the Incident.
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
