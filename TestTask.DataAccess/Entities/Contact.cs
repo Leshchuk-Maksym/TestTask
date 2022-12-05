@@ -20,6 +20,9 @@ namespace TestTask.DataAccess.Entities
         /// </summary>
         public string LastName { get; set; }
 
+        /// <summary>
+        /// Gets and sets Account for the Contact.
+        /// </summary>
         public Account Account { get; set; }
     }
 }

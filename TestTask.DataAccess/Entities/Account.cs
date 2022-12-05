@@ -19,6 +19,9 @@ namespace TestTask.DataAccess.Entities
         /// </summary>
         public virtual ICollection<Contact> Contacts { get; set; }
 
+        /// <summary>
+        /// Gets and sets Account for the Incident.
+        /// </summary>
         public Incident Incident { get; set; }
     }
 }
