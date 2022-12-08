@@ -75,7 +75,7 @@ namespace TestTask.Domain.Services
         /// <returns></returns>
         public async Task GetAll()
         {
-            return await _accountsRepository.GetAllAsync()
+            return await _accountsRepository.GetAllAsync();
         }
 
         /// <summary>
