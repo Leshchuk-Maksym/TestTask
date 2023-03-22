@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using TestTaskDAL.Enums;
 
 namespace TestTaskDAL.Entities
 {
@@ -12,7 +11,5 @@ namespace TestTaskDAL.Entities
 
         public string Password { get; set; }
 
-        [EnumDataType(typeof(Role))]
-        public Role Role { get; set; }
     }
 }
