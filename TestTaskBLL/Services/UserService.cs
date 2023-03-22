@@ -33,6 +33,12 @@ namespace TestTaskBLL.Services
 
         public async Task AddAsync(User entity)
         {
+            var user = await userRepository.All().Where(x => x.Email == entity.Email || x.UserName == entity.UserName).FirstOrDefaultAsync();
+            if (user is not null)
+            {
+                throw new Exception($"User with email {entity.Email} is already exists");
+            }
+
             await userRepository.AddAsync(entity);
         }
 
@@ -45,13 +51,9 @@ namespace TestTaskBLL.Services
         {
             await userRepository.DeleteAsync(await userRepository.GetByIdAsync(id));
         }
-        public async Task<JwtToken> Register(RegisterDto registerDto)
+
+        private string CreateToken(User user)
         {
-
-            var passHash = BCrypt.Net.BCrypt.HashPassword(registerDto.Password);
-            await userRepository.AddAsync(new User { UserName = registerDto.UserName, Email = registerDto.Email, Password = passHash });
-            var user = await userRepository.All().Where(x => x.Email == registerDto.Email).FirstOrDefaultAsync();
-
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenKey = Encoding.UTF8.GetBytes(configuration["JWT:Key"]);
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -66,8 +68,21 @@ namespace TestTaskBLL.Services
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
 
-            return new JwtToken { Token = tokenHandler.WriteToken(token) };
+        public async Task<JwtToken> Register(RegisterDto registerDto)
+        {
+
+            var passHash = BCrypt.Net.BCrypt.HashPassword(registerDto.Password);
+
+            await this.AddAsync(new User { UserName = registerDto.UserName, Email = registerDto.Email, Password = passHash });
+
+            var user = await userRepository.All().Where(x => x.Email == registerDto.Email).FirstOrDefaultAsync();
+
+            var token = CreateToken(user);
+
+            return new JwtToken { Token = token };
         }
 
         public async Task<JwtToken> Login(LoginDto loginDto)
@@ -83,22 +98,8 @@ namespace TestTaskBLL.Services
                 throw new Exception("Invalid Password");
             }
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenKey = Encoding.UTF8.GetBytes(configuration["JWT:Key"]);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                        new Claim(ClaimTypes.Name, user.UserName.ToString()),
-                        new Claim(ClaimTypes.Email, user.Email.ToString())
-                }),
-                Expires = DateTime.Now.AddMinutes(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-
-            return new JwtToken { Token = tokenHandler.WriteToken(token) };
+            var token = CreateToken(user);
+            return new JwtToken { Token = token };
         }
 
     }
