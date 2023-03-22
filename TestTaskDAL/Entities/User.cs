@@ -4,7 +4,7 @@ namespace TestTaskDAL.Entities
 {
     public class User : IEntity
     {
-        public int UserName { get; set; }
+        public string UserName { get; set; }
 
         [EmailAddress]
         public string Email { get; set; }

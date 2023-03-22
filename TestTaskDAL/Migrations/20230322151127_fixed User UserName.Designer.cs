@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestTaskDAL.Context;
 
@@ -11,9 +12,11 @@ using TestTaskDAL.Context;
 namespace TestTaskDAL.Migrations
 {
     [DbContext(typeof(TestTaskContext))]
-    partial class TestTaskContextModelSnapshot : ModelSnapshot
+    [Migration("20230322151127_fixed User UserName")]
+    partial class fixedUserUserName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

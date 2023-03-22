@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using TestTaskBLL.Interfaces;
+using TestTaskBLL.Services;
 using TestTaskDAL.Context;
+using TestTaskDAL.Interfaces;
+using TestTaskDAL.Respositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +15,8 @@ builder.Services.AddDbContext<TestTaskContext>(options => options
     .EnableSensitiveDataLogging(), ServiceLifetime.Transient);
 
 // Add services to the container.
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

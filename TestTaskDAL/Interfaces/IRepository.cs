@@ -6,8 +6,8 @@
 
         Task<IEnumerable<IEntity>> GetAllAsync();
         Task<IEntity> GetByIdAsync(int id);
-        Task<IEntity> AddAsync(IEntity entity);
+        Task AddAsync(IEntity entity);
         Task DeleteAsync(IEntity entity);
-
+        Task SaveChangesAsync();
     }
 }
