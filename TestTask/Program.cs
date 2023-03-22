@@ -17,6 +17,7 @@ builder.Services.AddDbContext<TestTaskContext>(options => options
 // Add services to the container.
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITestService, TestService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -6,7 +6,7 @@ namespace TestTaskBLL.Interfaces
     {
         Task<IEnumerable<Test>> GetAllAsync();
         Task<Test> GetByIdAsync(int id);
-        Task<Test> AddAsync(Test entity);
-        Task DeleteAsync(Test entity);
+        Task AddAsync(Test entity);
+        Task DeleteByIdAsync(int id);
     }
 }
