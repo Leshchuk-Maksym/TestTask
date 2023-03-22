@@ -1,4 +1,5 @@
-﻿using TestTaskDAL.Entities;
+﻿using TestTaskBLL.Dto;
+using TestTaskDAL.Entities;
 
 namespace TestTaskBLL.Interfaces
 {
@@ -9,5 +10,8 @@ namespace TestTaskBLL.Interfaces
         Task AddAsync(User entity);
         Task DeleteAsync(User entity);
         Task DeleteByIdAsync(int id);
+
+        Task<JwtToken> Register(RegisterDto registerDto);
+        Task<JwtToken> Login(LoginDto loginDto);
     }
 }

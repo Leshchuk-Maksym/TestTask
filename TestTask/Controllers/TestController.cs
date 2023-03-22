@@ -21,7 +21,7 @@ namespace TestTask.Controllers
             return Ok(await testService.GetAllAsync());
         }
 
-        [HttpGet("getById")]
+        [HttpGet("getById/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             try
@@ -49,7 +49,7 @@ namespace TestTask.Controllers
 
         }
 
-        [HttpDelete("deleteById")]
+        [HttpDelete("deleteById/{id}")]
         public async Task DeleteById(int id)
         {
             await testService.DeleteByIdAsync(id);

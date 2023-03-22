@@ -21,7 +21,7 @@ namespace TestTask.Controllers
             return Ok(await questionService.GetAllAsync());
         }
 
-        [HttpGet("getById")]
+        [HttpGet("getById/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             try
@@ -34,7 +34,7 @@ namespace TestTask.Controllers
             }
         }
 
-        [HttpGet("getByTestId")]
+        [HttpGet("getByTestId/{id}")]
         public async Task<IActionResult> GetByTestId(int id)
         {
             try
@@ -60,13 +60,18 @@ namespace TestTask.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
         }
 
-        [HttpDelete("deleteById")]
+        [HttpDelete("deleteById/{id}")]
         public async Task DeleteById(int id)
         {
             await questionService.DeleteByIdAsync(id);
+        }
+
+        [HttpPost("getRightAnswer/{id}")]
+        public async Task<Answer> GetRightAnswerById(int id)
+        {
+            return await questionService.GetRightAnswerByIdAsync(id);
         }
     }
 }

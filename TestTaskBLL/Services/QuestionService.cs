@@ -44,5 +44,10 @@ namespace TestTaskBLL.Services
         {
             return await questionRepository.All().Include(x => x.Answers).Where(x => x.TestId == id).ToListAsync();
         }
+
+        public async Task<Answer> GetRightAnswerByIdAsync(int id)
+        {
+            return await answerRepository.All().Where(x => x.QuestionId == id && x.IsRight).FirstOrDefaultAsync();
+        }
     }
 }

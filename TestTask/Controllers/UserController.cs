@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TestTaskBLL.Dto;
 using TestTaskBLL.Interfaces;
 using TestTaskDAL.Entities;
 
@@ -21,7 +22,7 @@ namespace TestTask.Controllers
             return Ok(await userService.GetAllAsync());
         }
 
-        [HttpGet("getById")]
+        [HttpGet("getById/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             try
@@ -49,10 +50,23 @@ namespace TestTask.Controllers
 
         }
 
-        [HttpDelete("deleteById")]
+        [HttpDelete("deleteById/{id}")]
         public async Task DeleteById(int id)
         {
             await userService.DeleteByIdAsync(id);
         }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(RegisterDto registerDto)
+        {
+            return Ok(await userService.Register(registerDto));
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginDto loginDto)
+        {
+            return Ok(await userService.Login(loginDto));
+        }
+
     }
 }
