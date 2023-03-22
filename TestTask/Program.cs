@@ -4,7 +4,7 @@ using TestTaskDAL.Context;
 var builder = WebApplication.CreateBuilder(args);
 
 
-string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+string connectionString = builder.Configuration.GetConnectionString("DbConnection");
 
 builder.Services.AddDbContext<TestTaskContext>(options => options
     .UseSqlServer(connectionString, b => b.MigrationsAssembly("TestTaskDAL"))
