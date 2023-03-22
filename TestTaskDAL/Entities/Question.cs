@@ -1,6 +1,6 @@
 ﻿namespace TestTaskDAL.Entities
 {
-    public class Question : IEnitity
+    public class Question : IEntity
     {
         public string Body { get; set; }
 

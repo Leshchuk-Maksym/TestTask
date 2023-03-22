@@ -2,7 +2,7 @@
 
 namespace TestTaskDAL.Entities
 {
-    public class User : IEnitity
+    public class User : IEntity
     {
         public int UserName { get; set; }
 
