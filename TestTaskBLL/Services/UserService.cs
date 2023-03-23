@@ -64,7 +64,7 @@ namespace TestTaskBLL.Services
                         new Claim(ClaimTypes.Name, user.UserName.ToString()),
                         new Claim(ClaimTypes.Email, user.Email.ToString())
                 }),
-                Expires = DateTime.Now.AddMinutes(1),
+                Expires = DateTime.Today.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TestTaskBLL.Dto;
 using TestTaskBLL.Interfaces;
 using TestTaskDAL.Entities;
@@ -7,6 +8,7 @@ namespace TestTask.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService userService;
@@ -55,7 +57,7 @@ namespace TestTask.Controllers
         {
             await userService.DeleteByIdAsync(id);
         }
-
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto registerDto)
         {
@@ -73,7 +75,7 @@ namespace TestTask.Controllers
             }
 
         }
-
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
