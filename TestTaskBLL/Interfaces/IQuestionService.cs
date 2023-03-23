@@ -7,9 +7,9 @@ namespace TestTaskBLL.Interfaces
         Task<IEnumerable<Question>> GetAllAsync();
         Task<Question> GetByIdAsync(int id);
         Task<IEnumerable<Question>> GetByTestIdAsync(int id);
-        Task<Answer> GetRightAnswerByIdAsync(int id);
         Task AddAsync(Question entity);
         Task DeleteAsync(Question entity);
         Task DeleteByIdAsync(int id);
+        Task<double> CheckAnswers(List<int> answersIds);
     }
 }

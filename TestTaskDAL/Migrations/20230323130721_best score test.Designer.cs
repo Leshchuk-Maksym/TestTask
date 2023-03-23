@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestTaskDAL.Context;
 
@@ -10,9 +11,11 @@ using TestTaskDAL.Context;
 namespace TestTaskDAL.Migrations
 {
     [DbContext(typeof(TestTaskContext))]
-    partial class TestTaskContextModelSnapshot : ModelSnapshot
+    [Migration("20230323130721_best score test")]
+    partial class bestscoretest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,8 +79,8 @@ namespace TestTaskDAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("BestScore")
-                        .HasColumnType("float");
+                    b.Property<int>("BestScore")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()

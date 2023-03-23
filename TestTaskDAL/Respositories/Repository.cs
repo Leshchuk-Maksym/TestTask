@@ -38,7 +38,13 @@ namespace TestTaskDAL.Respositories
             _context.Set<TEntity>().Remove(entity);
             await _context.SaveChangesAsync();
         }
-
+        public async Task UpdateAsync(TEntity entity)
+        {
+            _context.Entry(entity).State = EntityState.Modified;
+            _context.Set<TEntity>().Update(entity);
+            await _context.SaveChangesAsync();
+            _context.Entry(entity).State = EntityState.Detached;
+        }
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();

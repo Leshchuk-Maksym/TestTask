@@ -6,7 +6,7 @@ namespace TestTaskDAL.Entities
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public int BestScore { get; set; }
+        public double BestScore { get; set; }
 
         [ForeignKey("User")]
         public int UserId { get; set; }

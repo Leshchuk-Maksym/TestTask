@@ -68,10 +68,6 @@ namespace TestTask.Controllers
             await questionService.DeleteByIdAsync(id);
         }
 
-        [HttpPost("getRightAnswer/{id}")]
-        public async Task<Answer> GetRightAnswerById(int id)
-        {
-            return await questionService.GetRightAnswerByIdAsync(id);
-        }
+
     }
 }

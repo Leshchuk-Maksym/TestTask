@@ -8,6 +8,7 @@
         Task<IEntity> GetByIdAsync(int id);
         Task AddAsync(IEntity entity);
         Task DeleteAsync(IEntity entity);
+        Task UpdateAsync(IEntity entity);
         Task SaveChangesAsync();
     }
 }

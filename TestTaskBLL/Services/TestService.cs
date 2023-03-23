@@ -34,12 +34,30 @@ namespace TestTaskBLL.Services
 
         public async Task<Test> GetByIdAsync(int id)
         {
-            return await testRepository.GetByIdAsync(id);
+            var test = await testRepository.GetByIdAsync(id);
+            test.Questions = await questionRepository.All().Include(x => x.Answers).Where(x => x.TestId == id).ToListAsync();
+
+            return test;
         }
 
         public async Task<IEnumerable<Test>> GetByUserIdAsync(int id)
         {
             return await testRepository.All().Where(x => x.UserId == id).ToListAsync();
+        }
+
+        public async Task UpdateAsync(Test entity)
+        {
+            await testRepository.UpdateAsync(entity);
+        }
+
+        public async Task UpdateBestScoreAsync(double score, int id)
+        {
+            var entity = await testRepository.GetByIdAsync(id);
+            if (entity.BestScore < score)
+            {
+                entity.BestScore = score;
+                await testRepository.UpdateAsync(entity);
+            }
         }
     }
 }
