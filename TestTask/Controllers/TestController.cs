@@ -34,6 +34,19 @@ namespace TestTask.Controllers
             }
         }
 
+        [HttpGet("getByUserId/{id}")]
+        public async Task<IActionResult> GetByUserId(int id)
+        {
+            try
+            {
+                return Ok(await testService.GetByUserIdAsync(id));
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("create")]
         public async Task<IActionResult> Create(Test entity)
         {

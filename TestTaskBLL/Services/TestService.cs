@@ -36,5 +36,10 @@ namespace TestTaskBLL.Services
         {
             return await testRepository.GetByIdAsync(id);
         }
+
+        public async Task<IEnumerable<Test>> GetByUserIdAsync(int id)
+        {
+            return await testRepository.All().Where(x => x.UserId == id).ToListAsync();
+        }
     }
 }

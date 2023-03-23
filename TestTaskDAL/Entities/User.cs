@@ -11,5 +11,7 @@ namespace TestTaskDAL.Entities
 
         public string Password { get; set; }
 
+        public virtual ICollection<Test> Tests { get; set; }
+
     }
 }
